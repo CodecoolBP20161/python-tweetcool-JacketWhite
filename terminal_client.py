@@ -27,12 +27,18 @@ class Interface():
         except KeyboardInterrupt:
             print('\n')
             raise SystemExit
+        except EOFError:
+            print('\n')
+            raise SystemExit
 
     def tweet(self):
         try:
             message = input('Whats in your mind? ')
             requests.post(self.server + '/tweet', json = ({'poster': self.user, 'content': message}))
         except KeyboardInterrupt:
+            print('\n')
+            raise SystemExit
+        except EOFError:
             print('\n')
             raise SystemExit
 
