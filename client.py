@@ -1,5 +1,7 @@
 import argparse
 import ipaddress
+import requests
+from terminal_client import Interface
 
 
 parser = argparse.ArgumentParser()
@@ -26,5 +28,11 @@ if not(1024 < server["port"] < 65535):
     exit(0)
 
 server["address"] = 'http://' + server["host"].compressed + ':' + str(server["port"])
-
 # Logic starts here... somewhere..
+
+while Interface.running:
+    Interface.log_in()
+    UI = Interface(Interface.user, server["address"])
+    while Interface.logged:
+        UI.tweet()
+        UI.posts()
